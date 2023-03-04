@@ -58,6 +58,9 @@ func parseCookieLine(cookieLine string, lineNum int) (*http.Cookie, error) {
 
 	if len(cookieFields) == 7 {
 		cookie.Value = cookieFields[6]
+		if unquoted, err := strconv.Unquote(cookie.Value); err == nil {
+			cookie.Value = unquoted
+		}
 	}
 
 	return cookie, nil
